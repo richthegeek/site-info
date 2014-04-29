@@ -1,5 +1,5 @@
 module.exports = (body, url) ->
-	title = body.match('<title>(([\r\n\s]|.)*?)</title>')[1]
+	title = require('./getTitle')(body)
 
 	trim = (v) -> v.replace(/(^\s+|\s+$)/, '')
 

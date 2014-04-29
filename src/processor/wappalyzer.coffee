@@ -730,7 +730,7 @@ module.exports = {
 			"website": "disqus.com",
 			"cats": [ 15 ],
 			"script": "disqus_url",
-			"html": "<div[^>]+id=\"disqus_thread\"",
+			"html": "<div[^>]+id=('|\")disqus_thread('|\")",
 			"env": "^DISQUS"
 		},
 		"Django": {
@@ -804,14 +804,27 @@ module.exports = {
 			"cats": [ 1 ],
 			"script": "drupal\\.js",
 			"html": "<(?:link|style)[^>]+sites/(?:default|all)/(?:themes|modules)/",
-			"headers": { "X-Drupal-Cache": ".*", "X-Generator": "Drupal(?:\\s([\\d.]+))?\\;version:\\1", "Expires": "19 Nov 1978" },
+			"headers": {
+				"X-Drupal-Cache": ".*",
+				"Drupal-Cache": ".*",
+				"X-Generator": "Drupal(?:\\s([\\d.]+))?\\;version:\\1",
+				"Generator": "Drupal(?:\\s([\\d.]+))?\\;version:\\1",
+				"Expires": "19 Nov 1978"
+			},
+			"meta": {
+				"generator": "Drupal(?:\\s([\\d.]+))?\\;version:\\1"
+			},
 			"env": "^Drupal$",
 			"implies": "PHP"
 		},
 		"Drupal Commerce": {
 			"website": "drupalcommerce.org",
 			"cats": [ 6 ],
-			"html": "(?:id=\"block[_-]commerce[_-]cart[_-]cart|class=\"commerce[_-]product[_-]field)",
+			"html": [
+				"(?:id=\"block[_-]commerce[_-]cart[_-]cart|class=\"commerce[_-]product[_-]field)",
+				"commerce_unit_price\\]\\[",
+				"commerce-cart-add-to-cart-form"
+			],
 			"implies": "Drupal"
 		},
 		"dwhttpd": {
@@ -1056,6 +1069,10 @@ module.exports = {
 			"website": "www.gentoo.org",
 			"cats": [ 28 ],
 			"headers": { "X-Powered-By": "gentoo" }
+		},
+		"Generic Commerce": {
+			"cats": [ 6 ],
+			"html": "href=('|\")[^'\"]*(cart|checkout|basket)(\/|'|\")"
 		},
 		"Get Satisfaction": {
 			"website": "getsatisfaction.com",
@@ -1464,6 +1481,7 @@ module.exports = {
 			"website": "jquery.com",
 			"cats": [ 12 ],
 			"script": [ "jquery(?:\\-|\\.)([\\d.]*\\d)[^/]*\\.js\\;version:\\1", "/([\\d.]+)/jquery(\\.min)?\\.js\\;version:\\1", "jquery.*\\.js" ],
+			"html": "google.load\\(\\s*.jquery.,\\s*.([\\d.]*)\\;version:\\1",
 			"env": "^jQuery$"
 		},
 		"jQuery Mobile": {
@@ -2894,6 +2912,11 @@ module.exports = {
 			"cats": [ 13 ],
 			"html": "<a id=\"tracpowered",
 			"implies": "Python"
+		},
+		"Trakapo": {
+			"website": "trakapo.com",
+			"cats": [10, 32],
+			"html": "trakapo",
 		},
 		"Tumblr": {
 			"website": "www.tumblr.com",

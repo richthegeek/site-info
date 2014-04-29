@@ -51,14 +51,11 @@ module.exports = (app) ->
 
 			req.time 'Found'
 			if not info
-				req.db.sites.remove {_id: domain}, (err) ->
-					setTimeout (() ->
-						req.db.sites.insert {_id: domain}, (err) ->
-							if err
-								return send err
+				req.db.sites.update {_id: domain}, {$set: stale: true}, {upsert: true}, (err) ->
+					if err
+						return send err
 
-							req.time 'Inserted'
-							awaitName()
-					), 1
+					req.time 'Inserted'
+					awaitName()
 			else
 				awaitName()
