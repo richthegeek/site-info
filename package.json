@@ -1,0 +1,17 @@
+{
+	"name": "site-info",
+	"description": "Retrieve information about sites",
+	"dependencies": {
+		"async": "*",
+		"express": "4.x",
+		"cors": "*",
+		"redis": "*",
+		"mongodb": "*",
+		"request": "*",
+
+		"response-time": "*"
+	},
+	"scripts": {
+		"start": "node-dev ./lib/app"
+	}
+}
