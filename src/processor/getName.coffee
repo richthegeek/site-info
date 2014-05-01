@@ -7,7 +7,7 @@ module.exports = (body, url) ->
 		tld = tld[1].replace /[^\d\w]+/, ''
 		
 	if title
-		words = title.split /(\&.+?;|,|\.|-|[^\w\d]+)\s/
+		words = title.split /(\&.+?;|:|,|\.|-|[^\w\d])+\s/
 		if tld
 			pattern = new RegExp '^\\s*' + tld.split('').map((v) -> v + '\\s?').join('') + '.*\s*', 'i'
 			matched = words.map(pattern.exec.bind(pattern))

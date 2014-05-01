@@ -12,7 +12,8 @@ getDatabase = async.memoize (callback) ->
 		if err
 			return callback err
 
-		db.sites = db.collection 'sites'
+		for collection in ['sites', 'maps', 'pages']
+			db[collection] or= db.collection collection
 
 		processor.setup db
 		db.ensureWatcher {}, (err, set) ->

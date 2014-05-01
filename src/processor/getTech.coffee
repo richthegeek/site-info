@@ -24,9 +24,6 @@ module.exports = (input) ->
 	categories = []
 	versions = {}
 	setDetected = (name, type, pattern, match) ->
-		if pattern.version
-			console.log name, pattern, match
-
 		if pattern.version and version = match.match pattern.regex
 			for ver in version when m = ver?.match? /^\s*([1-9]?[0-9](\.[0-9]+)*)\s*$/
 				versions[name] = m[1]
